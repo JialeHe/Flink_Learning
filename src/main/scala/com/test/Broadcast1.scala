@@ -21,18 +21,18 @@ object Broadcast1 {
     val workers: DataSet[Worker] = env.fromElements(
       Worker("hejiale", 13320.14),
       Worker("txt", 10540.87),
-      Worker("msq",12000.0)
+      Worker("msq", 12000.0)
     )
 
     // 准备统计数据 用于广播
-    case class Count(name: String, month:Int)
+    case class Count(name: String, month: Int)
     val counts: DataSet[Count] = env.fromElements(
       Count("hejiale", 12),
       Count("txt", 10)
     )
 
-    workers.map(new RichMapFunction[Worker,Worker] {
-      private var  cwork: java.util.List[Count] = null
+    workers.map(new RichMapFunction[Worker, Worker] {
+      private var cwork: java.util.List[Count] = null
 
       override def open(parameters: Configuration): Unit = {
         super.open(parameters)
@@ -43,10 +43,10 @@ object Broadcast1 {
       override def map(w: Worker): Worker = {
         // 解析广播数据
         var i = 0
-        while (i < cwork.size()){
+        while (i < cwork.size()) {
           val c: Count = cwork.get(i)
           i += 1
-          if (c.name.equalsIgnoreCase(w.name)){
+          if (c.name.equalsIgnoreCase(w.name)) {
             // 有相应的信息
             return Worker(w.name, w.salary * c.month)
           }
