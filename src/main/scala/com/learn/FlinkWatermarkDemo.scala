@@ -48,7 +48,7 @@ object FlinkWaterMarkDemo {
     env.getConfig.setRestartStrategy(RestartStrategies.fixedDelayRestart(4,10000))
     env.setParallelism(1)
     //从kafka中读取数据,得到datastream;
-    val dataStream = CommonUtils.getDataStream(env = env)
+    val dataStream = CommonUtils.getDataStream(env = env,"test")
     val filter_stream = dataStream
       .filter(_.nonEmpty)
       .filter(_.contains(","))

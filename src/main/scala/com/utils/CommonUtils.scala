@@ -18,10 +18,9 @@ object CommonUtils {
   private final val zk = "mini04:2181"
   private final val broker = "mini04:9092"
   private final val group_id = "hjl_lean"
-  private final val topic = "test"
 
 
-  def getDataStream(env: StreamExecutionEnvironment): DataStream[String] = {
+  def getDataStream(env: StreamExecutionEnvironment, topic: String): DataStream[String] = {
     val pro = new Properties()
     pro.setProperty("zookeeper.connect", zk)
     pro.setProperty("bootstrap.servers", broker)

@@ -59,7 +59,7 @@ object MyWatermarkDamo {
     env.getConfig.setRestartStrategy(RestartStrategies.fixedDelayRestart(4, 10000L))
     env.setParallelism(1)
 
-    val dataStream: DataStream[String] = CommonUtils.getDataStream(env)
+    val dataStream: DataStream[String] = CommonUtils.getDataStream(env,"flink_test")
 
     dataStream
       .filter(x => (x.nonEmpty && x.contains(",")))
